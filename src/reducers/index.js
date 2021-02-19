@@ -1,56 +1,53 @@
 import {
-    FETCH_SMURFS_LOADING,
-    FETCH_SMURFS_SUCCESS,
-    FETCH_SMURFS_FAILURE,
-    ADD_A_SMURF,
-    SMURF_FAIL,
-} from '../actions'
-
-export const initialState = {
-    isLoading: false,
+    FETCH_SMURF_FAILURE,
+    FETCH_SMURF_LOADING,
+    FETCH_SMURF_SUCCESS,
+    SET_ERROR,
+    ADD_SMURF
+  } from './../actions/';
+  
+  export const initialState = {
     smurfs: [],
-    error: '',
-}
-
-const reducer = (state=initialState, action)=>{
-    switch(action.type){
-        case FETCH_SMURFS_LOADING:
-            return{
-                ...state,
-                isLoading: true
-            }
-        case FETCH_SMURFS_SUCCESS:
-            return{
-                ...state,
-                isLoading: false,
-                smurfs: [action.payload]
-            }
-        case FETCH_SMURFS_FAILURE:
-            return{
-                ...state,
-                isLoading: false,
-                error: action.payload
-            }
-        case ADD_A_SMURF:
-            return{
-                ...state,
-                smurf: [...state, action.payload],
-                isLoading: false,
-            }
-        case SMURF_FAIL:
-            return{
-                ...state,
-                 isLoading: false,
-                 error: action.payload
-               }
-        default:
-            return state
+    isLoading: false,
+    errorMessage: '',
+  };
+  
+  const reducer = (state = initialState, action) => {
+    switch (action.type) {
+      case FETCH_SMURF_LOADING:
+        return {
+          ...state,
+          isLoading: true,
+        };
+      case FETCH_SMURF_SUCCESS:
+        return {
+          ...state,
+          smurfs: action.payload,
+          isLoading: false,
+          errorMessage: '',
+        };
+      case FETCH_SMURF_FAILURE:
+        return {
+          ...state,
+          errorMessage: action.payload,
+          isLoading: false,
+        };
+      case ADD_SMURF:
+        return {
+          ...state,
+          smurfs: [...state.smurfs, action.payload],
+        };
+      case SET_ERROR:
+        return {
+          ...state,
+          errorMessage: action.payload,
+        };
+      default:
+        return state;
     }
-
-}
-
-
-export default reducer;
+  };
+  
+  export default reducer;
 
 //Task List:
 //1. Adds the following state values into the initialState:
